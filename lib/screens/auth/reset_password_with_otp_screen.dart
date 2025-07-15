@@ -1,12 +1,12 @@
-import 'dart:async'; // Import for Timer
+import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:ichizen/constants/app_colors.dart';
 import 'package:ichizen/constants/app_text_styles.dart';
 import 'package:ichizen/routes/app_routes.dart';
 import 'package:ichizen/services/api_services.dart';
 import 'package:ichizen/widgets/custom_input_field.dart';
 import 'package:ichizen/widgets/primary_button.dart';
-import 'package:flutter/material.dart';
 
 class ResetPasswordWithOtpScreen extends StatefulWidget {
   final String email; // Email passed from ForgotPasswordScreen
@@ -51,7 +51,7 @@ class _ResetPasswordWithOtpScreenState
   }
 
   void _startOtpTimer() {
-    _otpTimer?.cancel(); // Cancel any existing timer
+    _otpTimer?.cancel();
     _remainingSeconds = 600; // Reset to 10 minutes
     _otpTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_remainingSeconds > 0) {
@@ -59,7 +59,7 @@ class _ResetPasswordWithOtpScreenState
           _remainingSeconds--;
         });
       } else {
-        _otpTimer?.cancel(); // Stop the timer when it reaches 0
+        _otpTimer?.cancel();
       }
     });
   }
@@ -149,145 +149,171 @@ class _ResetPasswordWithOtpScreenState
     final bool otpExpired = _remainingSeconds == 0;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
+
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Reset Password'),
-        backgroundColor: AppColors.primary,
+        centerTitle: true,
+        title: const Text(
+          'Reset Password',
+          style: TextStyle(
+            color: Color(0xFF624F82),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
+        elevation: 0,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 40),
-              const Text(
-                "Enter OTP and New Password",
-                style: AppTextStyles.heading,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "An OTP has been sent to ${widget.email}. Please enter it below along with your new password.",
-                style: AppTextStyles.normal,
-              ),
-              const SizedBox(height: 30),
-              CustomInputField(
-                controller: TextEditingController(
-                  text: widget.email,
-                ), // Display email, not editable
-                hintText: 'Email',
-                labelText: 'Email Address',
-                icon: Icons.email_outlined,
-                readOnly: true,
-              ),
-              const SizedBox(height: 20),
-              CustomInputField(
-                controller: _otpController,
-                hintText: 'OTP',
-                labelText: 'One-Time Password (OTP)',
-                icon: Icons.vpn_key_outlined,
-                keyboardType: TextInputType.number,
-                customValidator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'OTP cannot be empty';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 10),
-              // OTP Timer display
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  otpExpired
-                      ? 'OTP Expired'
-                      : 'OTP expires in ${_formatTime(_remainingSeconds)}',
-                  style: TextStyle(
-                    color: otpExpired ? AppColors.error : AppColors.textLight,
-                    fontWeight: FontWeight.bold,
+
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFE0BBE4), Color(0xFFF0E6EF), Color(0xFFAFDCEB)],
+          ),
+        ),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(
+            24.0,
+            MediaQuery.of(context).padding.top + kToolbarHeight + 24.0,
+            24.0,
+            24.0,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Enter OTP and New Password",
+                  style: AppTextStyles.heading,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "An OTP has been sent to ${widget.email}. Please enter it below along with your new password.",
+                  style: AppTextStyles.normal,
+                ),
+                const SizedBox(height: 30),
+                CustomInputField(
+                  controller: TextEditingController(text: widget.email),
+                  hintText: 'Email',
+                  labelText: 'Email Address',
+                  icon: Icons.email_outlined,
+                  readOnly: true,
+                ),
+                const SizedBox(height: 20),
+                CustomInputField(
+                  controller: _otpController,
+                  hintText: 'OTP',
+                  labelText: 'One-Time Password (OTP)',
+                  icon: Icons.vpn_key_outlined,
+                  keyboardType: TextInputType.number,
+                  customValidator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'OTP cannot be empty';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    otpExpired
+                        ? 'OTP Expired'
+                        : 'OTP expires in ${_formatTime(_remainingSeconds)}',
+                    style: TextStyle(
+                      color: otpExpired ? AppColors.error : AppColors.textLight,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              CustomInputField(
-                controller: _newPasswordController,
-                hintText: 'New Password',
-                labelText: 'New Password',
-                icon: Icons.lock_outline,
-                isPassword: true,
-                obscureText: !_isNewPasswordVisible,
-                toggleVisibility: () {
-                  setState(() {
-                    _isNewPasswordVisible = !_isNewPasswordVisible;
-                  });
-                },
-                customValidator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'New password cannot be empty';
-                  }
-                  if (value.length < 8) {
-                    return 'Password must be at least 8 characters long';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              CustomInputField(
-                controller: _confirmPasswordController,
-                hintText: 'Confirm New Password',
-                labelText: 'Confirm New Password',
-                icon: Icons.lock_outline,
-                isPassword: true,
-                obscureText: !_isConfirmPasswordVisible,
-                toggleVisibility: () {
-                  setState(() {
-                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                  });
-                },
-                customValidator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Confirm password cannot be empty';
-                  }
-                  if (value != _newPasswordController.text) {
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 30),
-              _isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
+                const SizedBox(height: 20),
+                CustomInputField(
+                  controller: _newPasswordController,
+                  hintText: 'New Password',
+                  labelText: 'New Password',
+                  icon: Icons.lock_outline,
+                  isPassword: true,
+                  obscureText: !_isNewPasswordVisible,
+                  toggleVisibility: () {
+                    setState(() {
+                      _isNewPasswordVisible = !_isNewPasswordVisible;
+                    });
+                  },
+                  customValidator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'New password cannot be empty';
+                    }
+                    if (value.length < 8) {
+                      return 'Password must be at least 8 characters long';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                CustomInputField(
+                  controller: _confirmPasswordController,
+                  hintText: 'Confirm New Password',
+                  labelText: 'Confirm New Password',
+                  icon: Icons.lock_outline,
+                  isPassword: true,
+                  obscureText: !_isConfirmPasswordVisible,
+                  toggleVisibility: () {
+                    setState(() {
+                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                    });
+                  },
+                  customValidator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Confirm password cannot be empty';
+                    }
+                    if (value != _newPasswordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 30),
+                _isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF624F82),
+                        ),
+                      )
+                    : PrimaryButton(
+                        label: 'Reset Password',
+                        onPressed: otpExpired
+                            ? () {} // Disabled if OTP expired
+                            : () => _resetPassword(),
                       ),
-                    )
-                  : PrimaryButton(
-                      label: 'Reset Password',
-                      onPressed: otpExpired
-                          ? () {}
-                          : () => _resetPassword(), // Changed null to () {}
-                    ),
-              if (otpExpired)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Center(
-                    child: TextButton(
-                      onPressed: _isLoading
-                          ? () {}
-                          : () => _requestNewOtp(), // Changed null to () {}
-                      child: const Text(
-                        'Resend OTP',
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
+                if (otpExpired)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Center(
+                      child: TextButton(
+                        onPressed: _isLoading
+                            ? null // Disabled if loading
+                            : () => _requestNewOtp(),
+                        child: const Text(
+                          'Resend OTP',
+                          style: TextStyle(
+                            color: Color(0xFF624F82),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

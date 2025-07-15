@@ -1,10 +1,9 @@
-import 'package:ichizen/constants/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:ichizen/constants/app_text_styles.dart';
 import 'package:ichizen/routes/app_routes.dart';
 import 'package:ichizen/services/api_services.dart';
 import 'package:ichizen/widgets/custom_input_field.dart';
 import 'package:ichizen/widgets/primary_button.dart';
-import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -41,7 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         Navigator.pushNamed(
           context,
           AppRoutes.resetPasswordWithOtp,
-          arguments: email, // Pass the email to the next screen
+          arguments: email,
         );
       }
     } else {
@@ -70,48 +69,79 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
+
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Forgot Password'),
-        backgroundColor: AppColors.primary,
+        title: const Text(
+          'Forgot Password',
+          style: TextStyle(
+            color: Color(0xFF624F82),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 40),
-            const Text("Reset Your Password", style: AppTextStyles.heading),
-            const SizedBox(height: 10),
-            const Text(
-              "Enter your email address to receive a one-time password (OTP).",
-              style: AppTextStyles.normal,
-            ),
-            const SizedBox(height: 30),
-            CustomInputField(
-              controller: _emailController,
-              hintText: 'Email',
-              labelText: 'Email Address',
-              icon: Icons.email_outlined,
-              keyboardType: TextInputType.emailAddress,
-              customValidator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Email cannot be empty';
-                }
-                if (!value.contains('@')) {
-                  return 'Please enter a valid email address';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 30),
-            _isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(color: AppColors.primary),
-                  )
-                : PrimaryButton(label: 'Request OTP', onPressed: _requestOtp),
-          ],
+
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFE0BBE4), Color(0xFFF0E6EF), Color(0xFFAFDCEB)],
+          ),
+        ),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(
+            24.0,
+            MediaQuery.of(context).padding.top + kToolbarHeight + 24.0,
+            24.0,
+            24.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Reset Your Password", style: AppTextStyles.heading),
+              const SizedBox(height: 10),
+              const Text(
+                "Enter your email address to receive a one-time password (OTP).",
+                style: AppTextStyles.normal,
+              ),
+              const SizedBox(height: 30),
+              CustomInputField(
+                controller: _emailController,
+                hintText: 'Email',
+                labelText: 'Email Address',
+                icon: Icons.email_outlined,
+
+                keyboardType: TextInputType.emailAddress,
+                customValidator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Email cannot be empty';
+                  }
+                  if (!value.contains('@')) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 30),
+              _isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFF624F82),
+                      ),
+                    )
+                  : PrimaryButton(label: 'Request OTP', onPressed: _requestOtp),
+            ],
+          ),
         ),
       ),
     );

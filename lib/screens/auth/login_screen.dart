@@ -1,11 +1,9 @@
-import 'package:ichizen/constants/app_colors.dart';
-import 'package:ichizen/constants/app_text_styles.dart';
-import 'package:ichizen/models/app_models.dart';
-import 'package:ichizen/routes/app_routes.dart';
-import 'package:ichizen/services/api_services.dart';
 // import 'package:ichizen/widgets/custom_input_field.dart'; // Kita akan mengganti ini
 // import 'package:ichizen/widgets/primary_button.dart'; // Kita akan mengganti ini
 import 'package:flutter/material.dart';
+import 'package:ichizen/models/app_models.dart';
+import 'package:ichizen/routes/app_routes.dart';
+import 'package:ichizen/services/api_services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -98,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       // Hapus appBar jika tidak dibutuhkan, atau sesuaikan dengan AppBar transparan
       appBar: AppBar(
-        title: const Text('Login', style: TextStyle(color: Colors.white)),
+        title: const Text('Login', style: TextStyle(color: Color(0xFF624F82))),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -124,11 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   // Ganti icon atau tambahkan logo di sini jika diinginkan
                   const Text(
-                    'Selamat Datang!',
+                    'Selamat Datang di Ichizen !',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Color(0xFF624F82),
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -148,15 +146,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       prefixIcon: const Icon(
                         Icons.email,
-                        color: Color(0xFF957DAD), // Sesuaikan warna ikon
+                        color: Color(0xFF957DAD),
                       ),
-                      labelStyle: const TextStyle(
-                        color: Color(0xFF624F82),
-                      ), // Sesuaikan warna label
+                      labelStyle: const TextStyle(color: Color(0xFF624F82)),
                       hintStyle: TextStyle(
-                        color: const Color(
-                          0xFF624F82,
-                        ).withOpacity(0.7), // Sesuaikan warna hint
+                        color: const Color(0xFF624F82).withOpacity(0.7),
                       ),
                     ),
                     validator: (value) {
@@ -187,24 +181,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       prefixIcon: const Icon(
                         Icons.lock,
-                        color: Color(0xFF957DAD), // Sesuaikan warna ikon
+                        color: Color(0xFF957DAD),
                       ),
-                      labelStyle: const TextStyle(
-                        color: Color(0xFF624F82),
-                      ), // Sesuaikan warna label
+                      labelStyle: const TextStyle(color: Color(0xFF624F82)),
                       hintStyle: TextStyle(
-                        color: const Color(
-                          0xFF624F82,
-                        ).withOpacity(0.7), // Sesuaikan warna hint
+                        color: const Color(0xFF624F82).withOpacity(0.7),
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _isPasswordVisible
                               ? Icons.visibility
                               : Icons.visibility_off,
-                          color: const Color(
-                            0xFF957DAD,
-                          ), // Sesuaikan warna ikon
+                          color: const Color(0xFF957DAD),
                         ),
                         onPressed: () {
                           setState(() {
@@ -218,7 +206,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         return 'Password tidak boleh kosong';
                       }
                       if (value.length < 6) {
-                        // Contoh validasi panjang password
                         return 'Password minimal 6 karakter';
                       }
                       return null;
@@ -238,10 +225,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      backgroundColor: Colors.white, // Warna background tombol
-                      foregroundColor: const Color(
-                        0xFF624F82,
-                      ), // Warna teks tombol
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF624F82),
                       elevation: 5,
                     ),
                     child: _isLoading
@@ -250,7 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 3,
-                              color: Color(0xFF624F82), // Warna loading spinner
+                              color: Color(0xFF624F82),
                             ),
                           )
                         : const Text(
@@ -272,14 +257,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text(
                       'Lupa Password?',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xFF624F82),
                       ), // Warna teks lupa password
                     ),
                   ),
 
-                  const SizedBox(height: 30),
-
-                  // --- Go to Register ---
+                  // const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -293,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: const Text(
                           'Daftar Sekarang',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xFF624F82),
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),

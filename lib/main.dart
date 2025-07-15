@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:ichizen/routes/app_routes.dart';
 import 'package:ichizen/screens/attendance/request_screen.dart';
 import 'package:ichizen/screens/auth/forgot_password_screen.dart';
@@ -6,7 +7,6 @@ import 'package:ichizen/screens/auth/register_screen.dart';
 import 'package:ichizen/screens/auth/reset_password_with_otp_screen.dart';
 import 'package:ichizen/screens/main_bottom_navigation_bar.dart';
 import 'package:ichizen/screens/splash_screen.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());

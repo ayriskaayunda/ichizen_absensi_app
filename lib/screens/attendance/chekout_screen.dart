@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
-import 'package:latlong2/latlong.dart' as latlong_pkg;
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
 import 'package:ichizen/constants/app_colors.dart';
 import 'package:ichizen/constants/app_text_styles.dart';
+import 'package:latlong2/latlong.dart' as latlong_pkg;
 
 class CheckOutScreen extends StatefulWidget {
   final Function(latlong_pkg.LatLng, String) onCheckOut;
@@ -29,7 +29,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   );
   gmaps.GoogleMapController? _mapController;
   String _currentAddress = 'Mencari alamat...';
-  Set<gmaps.Marker> _markers = {};
+  final Set<gmaps.Marker> _markers = {};
 
   @override
   void initState() {
@@ -147,11 +147,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Lokasi Check Out',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: AppColors.primary,
+        backgroundColor: Color(0xFF624F82),
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
       ),
@@ -239,7 +240,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             }
                           },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
+                      backgroundColor: Color(0xFF624F82),
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),

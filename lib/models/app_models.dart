@@ -99,6 +99,7 @@ class User {
   final String? training_title; // Added new field
   final String? jenis_kelamin; // Added new field
   final String? profile_photo; // Added new field
+  final String? profile_photo_url; // Added new field
   final DateTime? emailVerifiedAt;
   final DateTime? createdAt; // Made nullable
   final DateTime? updatedAt; // Made nullable
@@ -115,6 +116,7 @@ class User {
     this.training_title, // Added to constructor
     this.jenis_kelamin, // Added to constructor
     this.profile_photo, // Added to constructor
+    this.profile_photo_url, // Added to constructor
     this.emailVerifiedAt,
     this.createdAt, // Removed required
     this.updatedAt, // Removed required
@@ -139,6 +141,8 @@ class User {
       training_title: json['training_title'] as String?, // Parse new field
       jenis_kelamin: json['jenis_kelamin'] as String?, // Parse new field
       profile_photo: json['profile_photo'] as String?, // Parse new field
+      profile_photo_url:
+          json['profile_photo_url'] as String?, // Parse new field
       emailVerifiedAt: json['email_verified_at'] != null
           ? DateTime.parse(json['email_verified_at'] as String)
           : null,
@@ -174,6 +178,7 @@ class User {
       'training_title': training_title, // Added to toJson
       'jenis_kelamin': jenis_kelamin, // Added to toJson
       'profile_photo': profile_photo, // Added to toJson
+      'profile_photo_url': profile_photo_url, // Added to toJson
       'email_verified_at': emailVerifiedAt?.toIso8601String(),
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),

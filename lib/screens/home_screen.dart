@@ -1,16 +1,16 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ichizen/constants/app_colors.dart';
+import 'package:ichizen/models/app_models.dart';
 import 'package:ichizen/screens/attendance/checkin_screen.dart';
 import 'package:ichizen/screens/attendance/chekout_screen.dart';
 import 'package:ichizen/screens/attendance/request_screen.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
-
-import 'package:ichizen/constants/app_colors.dart';
-import 'package:ichizen/models/app_models.dart';
 import 'package:ichizen/screens/main_bottom_navigation_bar.dart';
 import 'package:ichizen/services/api_services.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   final ValueNotifier<bool> refreshNotifier;
@@ -24,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final ApiService _apiService = ApiService();
 
   String _userName = 'User';
+  String _imageUrl = '';
+
   String _trainingName = 'Belum terdaftar training';
   String _currentDate = '', _currentTime = '';
   Timer? _timer;
@@ -66,8 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
     if (response.statusCode == 200 && response.data != null) {
       setState(() {
         _userName = response.data!.name;
-        _trainingName = response.data!.training?.title?.isNotEmpty == true
-            ? response.data!.training!.title!
+        _imageUrl = response.data!.profile_photo_url ?? '';
+        _trainingName = response.data!.training?.title.isNotEmpty == true
+            ? response.data!.training!.title
             : 'Belum terdaftar training';
       });
     }
@@ -203,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // New method to handle Izin request navigation
+  //fungsi untuk permintaan izin
   Future<void> _handleIzinRequest() async {
     final result = await Navigator.push(
       context,
@@ -301,9 +304,13 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(20),
       child: Row(
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 28,
             backgroundColor: AppColors.card,
+            // Menggunakan warna latar belakang yang konsisten dengan tema
+            backgroundImage: NetworkImage(
+              _imageUrl ?? "", // Ganti dengan URL gambar default
+            ),
           ), // Menggunakan AppColors.card
           const SizedBox(width: 12),
           Expanded(
@@ -311,11 +318,11 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hai, $_userName!',
+                  'Hallo, $_userName!',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.card, // Menggunakan AppColors.card
+                    color: Color(0xFF624F82),
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -323,16 +330,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   _trainingName,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: AppColors.textLight,
-                  ), // Menggunakan AppColors.textLight
+                    color: Color(0xFF624F82),
+                  ),
                 ),
               ],
             ),
           ),
-          const Icon(
-            Icons.notifications_none,
-            color: AppColors.card,
-          ), // Menggunakan AppColors.card
+          // const Icon(Icons.notifications_none, color: Color(0xFF624F82)),
         ],
       ),
     );
@@ -341,14 +345,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildStatusCard() {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.card, // Menggunakan AppColors.card
+        color: AppColors.background2,
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
           BoxShadow(
-            color: AppColors.border,
+            color: Color(0xFF624F82),
             blurRadius: 8,
             offset: Offset(0, 3),
-          ), // Menggunakan AppColors.border
+          ),
         ],
       ),
       padding: const EdgeInsets.all(20),
@@ -356,10 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text(
             _currentDate,
-            style: const TextStyle(
-              color: AppColors.placeholder,
-              fontSize: 14,
-            ), // Menggunakan AppColors.placeholder
+            style: const TextStyle(color: Colors.black, fontSize: 14),
           ),
           const SizedBox(height: 4),
           Text(
@@ -368,12 +369,9 @@ class _HomeScreenState extends State<HomeScreen> {
               fontSize: 28,
               fontWeight: FontWeight.w600,
               color: AppColors.textDark,
-            ), // Menggunakan AppColors.textDark
+            ),
           ),
-          const Divider(
-            height: 28,
-            color: AppColors.border,
-          ), // Menggunakan AppColors.border
+          const Divider(height: 28, color: AppColors.border),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -392,10 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: AppColors.placeholder,
-          ), // Menggunakan AppColors.placeholder
+          style: const TextStyle(fontSize: 12, color: AppColors.placeholder),
         ),
         const SizedBox(height: 4),
         Text(
@@ -404,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: AppColors.textDark,
-          ), // Menggunakan AppColors.textDark
+          ),
         ),
       ],
     );
@@ -413,11 +408,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCheckButton(bool hasCheckIn, bool hasCheckOut) {
     Color buttonColor;
     if (hasCheckIn) {
-      buttonColor = hasCheckOut
-          ? AppColors.inputFill
-          : AppColors.error; // Selesai: inputFill, Check Out: error
+      buttonColor = hasCheckOut ? AppColors.inputFill : AppColors.error;
     } else {
-      buttonColor = AppColors.success; // Check In: success
+      buttonColor = AppColors.success;
     }
 
     return ElevatedButton(
@@ -435,15 +428,12 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 20,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                color: AppColors.card, // Menggunakan AppColors.card
+                color: AppColors.card,
               ),
             )
           : Text(
               hasCheckIn ? (hasCheckOut ? 'Selesai' : 'Check Out') : 'Check In',
-              style: const TextStyle(
-                color: AppColors.card,
-                fontSize: 16,
-              ), // Menggunakan AppColors.card
+              style: const TextStyle(color: AppColors.card, fontSize: 16),
             ),
     );
   }
@@ -453,8 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return ElevatedButton(
       onPressed: _handleIzinRequest,
       style: ElevatedButton.styleFrom(
-        backgroundColor:
-            AppColors.primary, // You can choose an appropriate color
+        backgroundColor: const Color(0xFF624F82),
         minimumSize: const Size(double.infinity, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
@@ -474,27 +463,27 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: AppColors.textDark,
-          ), // Menggunakan AppColors.textDark
+            color: Color(0xFF624F82),
+          ),
         ),
         const SizedBox(height: 16),
         _buildSummaryCard(
           'Hadir',
           _absenceStats?.totalMasuk ?? 0,
-          AppColors.accentGreen, // Menggunakan AppColors.accentGreen
+          AppColors.accentGreen,
         ),
         const SizedBox(height: 12),
         _buildSummaryCard(
           'Izin',
           _absenceStats?.totalIzin ?? 0,
           AppColors.accentOrange,
-        ), // Menggunakan AppColors.accentOrange
+        ),
         const SizedBox(height: 12),
         _buildSummaryCard(
           'Absen',
           _absenceStats?.totalAbsen ?? 0,
           AppColors.accentRed,
-        ), // Menggunakan AppColors.accentRed
+        ),
       ],
     );
   }
@@ -504,14 +493,14 @@ class _HomeScreenState extends State<HomeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.card, // Menggunakan AppColors.card
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
           BoxShadow(
             color: AppColors.border,
             blurRadius: 5,
             offset: Offset(0, 3),
-          ), // Menggunakan AppColors.border
+          ),
         ],
       ),
       child: Row(

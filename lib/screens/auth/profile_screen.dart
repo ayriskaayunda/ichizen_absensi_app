@@ -1,13 +1,11 @@
 // lib/screens/profile/profile_screen.dart
-import 'package:ichizen/constants/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:ichizen/models/app_models.dart';
 import 'package:ichizen/screens/auth/edit_profile_screen.dart';
 import 'package:ichizen/services/api_services.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Keep this import for DateFormat if you use it for displaying dates in UI
 
 import '../../routes/app_routes.dart'; // Your AppRoutes
-import '../../constants/app_text_styles.dart'; // Import your AppTextStyles
 
 class ProfileScreen extends StatefulWidget {
   final ValueNotifier<bool> refreshNotifier;
@@ -23,7 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   User? _currentUser; // Holds the full user data (from API)
   bool _isLoading = false; // Add loading state
 
-  bool _notificationEnabled = true; // State for the notification switch
+  final bool _notificationEnabled = true; // State for the notification switch
 
   @override
   void initState() {
@@ -153,8 +151,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    // Navigate to the EditProfileScreen, passing the current user data.
-    // Await the result to know if data was updated.
     final bool? result = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -162,10 +158,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
 
-    // If result is true, it means the profile was successfully updated in EditProfileScreen,
-    // so refresh the data on this ProfileScreen.
     if (result == true) {
-      _loadUserData(); // Refresh profile data
+      _loadUserData(); // ✅ Ini akan memuat ulang data user setelah berhasil edit
     }
   }
 
@@ -219,25 +213,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFE0BBE4), // Light purple/pink
-              Color(0xFFADD8E6), // Light blue
-              Color(0xFF957DAD), // Medium purple
-            ],
+            colors: [Color(0xFFE0BBE4), Color(0xFFADD8E6), Color(0xFF957DAD)],
           ),
         ),
         child: _isLoading
             ? const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white, // White loading indicator
-                ),
+                child: CircularProgressIndicator(color: Colors.white),
               )
             : ListView(
                 padding: EdgeInsets.only(
                   top:
                       AppBar().preferredSize.height +
                       MediaQuery.of(context).padding.top +
-                      20, // Adjust top padding to clear AppBar
+                      20,
                   left: 16,
                   right: 16,
                   bottom: 20,
@@ -253,7 +241,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // White for username
+                            color: Color(0xFF624F82),
                           ),
                         ),
                         const SizedBox(height: 6),
@@ -261,8 +249,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           email,
                           style: const TextStyle(
                             fontSize: 15,
-                            color: Colors
-                                .white70, // Slightly transparent white for email
+                            color: Colors.black54,
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -314,18 +301,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                   const SizedBox(height: 30),
-                  // Edit Profile Button
+
                   ElevatedButton.icon(
                     onPressed: _navigateToEditProfile,
                     icon: const Icon(Icons.edit, color: Colors.white),
                     label: const Text(
                       'Edit Profil',
-                      style: TextStyle(fontSize: 18), // Adjusted font size
+                      style: TextStyle(fontSize: 18),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(
-                        0xFF624F82,
-                      ), // Primary button color
+                      backgroundColor: const Color(0xFF624F82),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
@@ -335,22 +320,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  // Logout Button (with confirmation)
+
                   ElevatedButton.icon(
-                    onPressed: () =>
-                        _logout(context), // Call _logout with context
+                    onPressed: () => _logout(context),
                     icon: const Icon(
                       Icons.logout,
                       color: Color(0xFF624F82),
                     ), // Icon color
-                    label: const Text(
-                      'Logout',
-                      style: TextStyle(fontSize: 18), // Adjusted font size
-                    ),
+                    label: const Text('Logout', style: TextStyle(fontSize: 18)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.white, // White background for logout button
-                      foregroundColor: const Color(0xFF624F82), // Text color
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF624F82),
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -372,7 +352,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (profilePhotoPath.isNotEmpty) {
       final String fullImageUrl = profilePhotoPath.startsWith('http')
           ? profilePhotoPath
-          : 'https://appabsensi.mobileprojp.com/public/' + profilePhotoPath;
+          : 'https://appabsensi.mobileprojp.com/public/$profilePhotoPath';
       imageProvider = NetworkImage(fullImageUrl);
     }
 

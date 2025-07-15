@@ -1,9 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:ichizen/constants/app_colors.dart';
 import 'package:ichizen/models/app_models.dart';
 import 'package:ichizen/services/api_services.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class AttendanceListScreen extends StatefulWidget {
   final ValueNotifier<bool> refreshNotifier;
@@ -27,6 +29,7 @@ class _AttendanceListScreenState extends State<AttendanceListScreen> {
   @override
   void initState() {
     super.initState();
+    initializeDateFormatting('id', null);
     _attendanceFuture = _fetchAndFilterAttendances();
     widget.refreshNotifier.addListener(_handleRefreshSignal);
   }
@@ -184,7 +187,7 @@ class _AttendanceListScreenState extends State<AttendanceListScreen> {
     }
 
     final String formattedDate = absence.attendanceDate != null
-        ? DateFormat('EEEE, dd MMMM yyyy').format(absence.attendanceDate!)
+        ? DateFormat('EEEE, dd MMMM yyyy', 'id').format(absence.attendanceDate!)
         : 'N/A';
 
     return Card(
@@ -368,17 +371,18 @@ class _AttendanceListScreenState extends State<AttendanceListScreen> {
                           Text(
                             DateFormat(
                               'MMM yyyy',
+                              'id',
                             ).format(_selectedMonth).toUpperCase(),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: AppColors.textDark,
+                              color: Color(0xFF624F82),
                             ),
                           ),
                           const SizedBox(width: 5),
                           const Icon(
                             Icons.calendar_today,
                             size: 16,
-                            color: AppColors.textDark,
+                            color: Color(0xFF624F82),
                           ),
                         ],
                       ),

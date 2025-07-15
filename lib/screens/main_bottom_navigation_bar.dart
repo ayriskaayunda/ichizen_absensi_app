@@ -1,25 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:ichizen/screens/attendance/attendance_list_screen.dart';
 import 'package:ichizen/screens/auth/profile_screen.dart';
 import 'package:ichizen/screens/home_screen.dart';
 import 'package:ichizen/screens/reports/person_report_screen.dart';
 import 'package:ichizen/widgets/custom_bottom_navigation_bar.dart';
-import 'package:flutter/material.dart';
 
 class MainBottomNavigationBar extends StatefulWidget {
   const MainBottomNavigationBar({super.key});
+  //valueNotifiers adalah cara untuk memberi sinyal kesetiap screen agar melakukan refresh
 
-  // FIX: Declare ValueNotifiers as static final members of the StatefulWidget itself
-  // This makes them globally accessible using MainBottomNavigationBar.notifierName
   static final ValueNotifier<bool> refreshHomeNotifier = ValueNotifier<bool>(
     false,
   );
   static final ValueNotifier<bool> refreshAttendanceNotifier =
       ValueNotifier<bool>(false);
-  // ValueNotifier for PersonReportScreen
+
   static final ValueNotifier<bool> refreshReportsNotifier = ValueNotifier<bool>(
     false,
   );
-  // NEW: ValueNotifier for ProfileScreen
+
   static final ValueNotifier<bool> refreshProfileNotifier = ValueNotifier<bool>(
     false,
   );
@@ -30,7 +29,7 @@ class MainBottomNavigationBar extends StatefulWidget {
 }
 
 class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
-  int _selectedIndex = 0; // Start with Home tab (index 0)
+  int _selectedIndex = 0;
 
   late final List<Widget> _widgetOptions;
 
@@ -38,12 +37,8 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   void initState() {
     super.initState();
     _widgetOptions = <Widget>[
-      // HomeScreen is now the actual content for the first tab.
-      // We pass the refreshHomeNotifier to it so it can listen for external refresh signals.
-      HomeScreen(
-        refreshNotifier: MainBottomNavigationBar.refreshHomeNotifier,
-      ), // Access via widget name
-      // AttendanceListScreen: Now accepts refreshAttendanceNotifier to listen for updates.
+      HomeScreen(refreshNotifier: MainBottomNavigationBar.refreshHomeNotifier),
+
       AttendanceListScreen(
         refreshNotifier: MainBottomNavigationBar.refreshAttendanceNotifier,
       ), // Access via widget name

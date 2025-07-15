@@ -1,13 +1,12 @@
-import 'package:ichizen/constants/app_colors.dart';
-import 'package:ichizen/constants/app_text_styles.dart';
-import 'package:ichizen/models/app_models.dart';
-import 'package:ichizen/routes/app_routes.dart';
-import 'package:ichizen/services/api_services.dart';
+import 'package:flutter/gestures.dart'; // Diperlukan untuk Text.rich
 // import 'package:ichizen/widgets/custom_dropdown_input_field.dart'; // Tidak digunakan lagi untuk styling
 // import 'package:ichizen/widgets/custom_input_field.dart'; // Tidak digunakan lagi untuk styling
 // import 'package:ichizen/widgets/primary_button.dart'; // Tidak digunakan lagi untuk styling
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart'; // Diperlukan untuk Text.rich
+import 'package:ichizen/constants/app_text_styles.dart';
+import 'package:ichizen/models/app_models.dart';
+import 'package:ichizen/routes/app_routes.dart';
+import 'package:ichizen/services/api_services.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -184,7 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Navigator.pushReplacementNamed(context, AppRoutes.login);
         }
       } else {
-        // Registration failed, show error message
+        // Register gagal , tampilkan pesan kesalahan
         String errorMessage = response.message;
         if (response.errors != null) {
           response.errors!.forEach((key, value) {
@@ -213,10 +212,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registrasi Akun'),
+        title: const Text('Registrasi '),
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
+        foregroundColor: const Color(0xFF624F82),
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -232,14 +231,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              SizedBox(height: AppBar().preferredSize.height + 20),
-
-              // Title and Subtitle
+              // SizedBox(height: AppBar().preferredSize.height + 20),
               Text(
                 "Create Account",
                 style: AppTextStyles.heading.copyWith(
-                  color:
-                      Colors.white, // Changed to white for gradient background
+                  color: const Color(0xFF624F82),
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -249,7 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Text(
                 "Join us to track your attendance effortlessly.",
                 style: AppTextStyles.normal.copyWith(
-                  color: Colors.white70, // Slightly transparent white
+                  color: Colors.black45,
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
@@ -259,9 +255,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               // Nama Lengkap
               TextFormField(
                 controller: _nameController,
+
                 decoration: InputDecoration(
                   labelText: 'Nama Lengkap',
-                  labelStyle: const TextStyle(color: Colors.white70),
+                  labelStyle: const TextStyle(color: Colors.black54),
                   hintText: "Masukkan nama lengkap Anda",
                   hintStyle: TextStyle(color: Colors.white70.withOpacity(0.7)),
                   border: OutlineInputBorder(
@@ -271,7 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: const BorderSide(
-                      color: Colors.white,
+                      color: Color(0xFF624F82),
                       width: 2.0,
                     ),
                   ),
@@ -281,13 +278,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.2),
-                  prefixIcon: const Icon(Icons.person, color: Colors.white70),
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: Color(0xFF624F82),
+                  ),
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 18,
                     horizontal: 12,
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Color(0xFF624F82)),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Nama tidak boleh kosong';
@@ -302,7 +302,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  labelStyle: const TextStyle(color: Colors.white70),
+                  labelStyle: const TextStyle(color: Colors.black54),
                   hintText: "Masukkan email Anda",
                   hintStyle: TextStyle(color: Colors.white70.withOpacity(0.7)),
                   border: OutlineInputBorder(
@@ -312,7 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: const BorderSide(
-                      color: Colors.white,
+                      color: Color(0xFF624F82),
                       width: 2.0,
                     ),
                   ),
@@ -322,13 +322,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.2),
-                  prefixIcon: const Icon(Icons.email, color: Colors.white70),
+                  prefixIcon: const Icon(Icons.email, color: Color(0xFF624F82)),
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 18,
                     horizontal: 12,
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Color(0xFF624F82)),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -348,7 +348,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 obscureText: !_isPasswordVisible,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  labelStyle: const TextStyle(color: Colors.white70),
+                  labelStyle: const TextStyle(color: Colors.black54),
                   hintText: "Buat password Anda",
                   hintStyle: TextStyle(color: Colors.white70.withOpacity(0.7)),
                   border: OutlineInputBorder(
@@ -358,7 +358,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: const BorderSide(
-                      color: Colors.white,
+                      color: Color(0xFF624F82),
                       width: 2.0,
                     ),
                   ),
@@ -368,13 +368,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.2),
-                  prefixIcon: const Icon(Icons.lock, color: Colors.white70),
+                  prefixIcon: const Icon(Icons.lock, color: Color(0xFF624F82)),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
-                      color: Colors.white70,
+                      color: const Color(0xFF624F82),
                     ),
                     onPressed: () {
                       setState(() {
@@ -387,7 +387,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     horizontal: 12,
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Color(0xFF624F82)),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Password tidak boleh kosong';
@@ -406,7 +406,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 obscureText: !_isConfirmPasswordVisible,
                 decoration: InputDecoration(
                   labelText: 'Konfirmasi Password',
-                  labelStyle: const TextStyle(color: Colors.white70),
+                  labelStyle: const TextStyle(color: Colors.black54),
                   hintText: "Konfirmasi password Anda",
                   hintStyle: TextStyle(color: Colors.white70.withOpacity(0.7)),
                   border: OutlineInputBorder(
@@ -416,7 +416,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: const BorderSide(
-                      color: Colors.white,
+                      color: Color(0xFF624F82),
                       width: 2.0,
                     ),
                   ),
@@ -426,13 +426,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   filled: true,
                   fillColor: Colors.white.withOpacity(0.2),
-                  prefixIcon: const Icon(Icons.lock, color: Colors.white70),
+                  prefixIcon: const Icon(Icons.lock, color: Color(0xFF624F82)),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isConfirmPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
-                      color: Colors.white70,
+                      color: const Color(0xFF624F82),
                     ),
                     onPressed: () {
                       setState(() {
@@ -445,7 +445,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     horizontal: 12,
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Color(0xFF624F82)),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Konfirmasi password tidak boleh kosong';
@@ -462,7 +462,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: 'Jenis Kelamin',
-                  labelStyle: const TextStyle(color: Colors.white70),
+                  labelStyle: const TextStyle(color: Colors.black54),
                   hintText: 'Pilih Jenis Kelamin',
                   hintStyle: TextStyle(color: Colors.white70.withOpacity(0.7)),
                   border: OutlineInputBorder(
@@ -472,7 +472,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: const BorderSide(
-                      color: Colors.white,
+                      color: Color(0xFF624F82),
                       width: 2.0,
                     ),
                   ),
@@ -484,33 +484,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   fillColor: Colors.white.withOpacity(0.2),
                   prefixIcon: const Icon(
                     Icons.transgender,
-                    color: Colors.white70,
+                    color: Color(0xFF624F82),
                   ),
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 18,
                     horizontal: 12,
                   ),
                 ),
-                dropdownColor: const Color(
-                  0xFF624F82,
-                ), // Warna background dropdown menu
-                style: const TextStyle(
-                  color: Colors.white,
-                ), // Warna teks item yang dipilih
+                // dropdownColor: const Color(0xFF624F82),
+                style: const TextStyle(color: Color(0xFF624F82)),
                 value: _selectedGender,
                 items: const [
                   DropdownMenuItem(
                     value: 'L',
                     child: Text(
                       'Laki-laki',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Color(0xFF624F82)),
                     ),
                   ),
                   DropdownMenuItem(
                     value: 'P',
                     child: Text(
                       'Perempuan',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Color(0xFF624F82)),
                     ),
                   ),
                 ],
@@ -536,7 +532,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   : DropdownButtonFormField<int>(
                       decoration: InputDecoration(
                         labelText: 'Batch',
-                        labelStyle: const TextStyle(color: Colors.white70),
+                        labelStyle: const TextStyle(color: Colors.black54),
                         hintText: 'Pilih Batch',
                         hintStyle: TextStyle(
                           color: Colors.white70.withOpacity(0.7),
@@ -548,7 +544,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: const BorderSide(
-                            color: Colors.white,
+                            color: Color(0xFF624F82),
                             width: 2.0,
                           ),
                         ),
@@ -560,15 +556,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         fillColor: Colors.white.withOpacity(0.2),
                         prefixIcon: const Icon(
                           Icons.group,
-                          color: Colors.white70,
+                          color: Color(0xFF624F82),
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 18,
                           horizontal: 12,
                         ),
                       ),
-                      dropdownColor: const Color(0xFF624F82),
-                      style: const TextStyle(color: Colors.white),
+                      // dropdownColor: const Color(0xFF624F82),
+                      style: const TextStyle(color: Color(0xFF624F82)),
                       value: _selectedBatchId,
                       isExpanded: true,
                       items: _batches.map((batch) {
@@ -576,7 +572,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           value: batch.id,
                           child: Text(
                             'Batch ${batch.batch_ke}',
-                            style: const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Color(0xFF624F82)),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -589,7 +585,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                       validator: (value) {
                         if (value == null || value == -1) {
-                          // Check for -1 from orElse
                           return 'Pilih batch';
                         }
                         return null;
@@ -597,7 +592,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
               const SizedBox(height: 16.0),
 
-              // Training Dropdown
               _isLoading
                   ? const Center(
                       child: CircularProgressIndicator(color: Colors.white),
@@ -605,7 +599,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   : DropdownButtonFormField<int>(
                       decoration: InputDecoration(
                         labelText: 'Training',
-                        labelStyle: const TextStyle(color: Colors.white70),
+                        labelStyle: const TextStyle(color: Colors.black54),
                         hintText: 'Pilih Training',
                         hintStyle: TextStyle(
                           color: Colors.white70.withOpacity(0.7),
@@ -617,7 +611,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: const BorderSide(
-                            color: Colors.white,
+                            color: Color(0xFF624F82),
                             width: 2.0,
                           ),
                         ),
@@ -629,15 +623,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         fillColor: Colors.white.withOpacity(0.2),
                         prefixIcon: const Icon(
                           Icons.school,
-                          color: Colors.white70,
+                          color: Color(0xFF624F82),
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 18,
                           horizontal: 12,
                         ),
                       ),
-                      dropdownColor: const Color(0xFF624F82),
-                      style: const TextStyle(color: Colors.white),
+                      dropdownColor: Colors.white,
+                      style: const TextStyle(color: Color(0xFF624F82)),
                       value: _selectedTrainingId,
                       isExpanded: true,
                       items: _trainings.map((training) {
@@ -645,7 +639,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           value: training.id,
                           child: Text(
                             training.title,
-                            style: const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Color(0xFF624F82)),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -666,7 +660,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
               const SizedBox(height: 24.0),
 
-              // Register Button
               _isLoading
                   ? const Center(
                       child: CircularProgressIndicator(color: Colors.white),
@@ -674,12 +667,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   : ElevatedButton(
                       onPressed: _register,
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 50,
+                          vertical: 15,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        backgroundColor: Colors.white,
-                        foregroundColor: const Color(0xFF624F82),
+                        backgroundColor: const Color(0xFF624F82),
+                        foregroundColor: Colors.white,
                       ),
                       child: const Text(
                         'Daftar',
@@ -700,7 +696,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFC0A4E3), // Warna link login
+                          color: Color(0xFF624F82),
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()

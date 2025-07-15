@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:ichizen/constants/app_colors.dart';
-import 'package:ichizen/constants/app_text_styles.dart';
-import 'package:ichizen/services/api_services.dart';
 import 'package:flutter/material.dart';
+import 'package:ichizen/services/api_services.dart';
 
 import '../routes/app_routes.dart';
 
@@ -55,7 +53,6 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (!mounted) return;
 
-    // Navigate to the appropriate route
     Navigator.of(context).pushReplacementNamed(nextRoute);
   }
 

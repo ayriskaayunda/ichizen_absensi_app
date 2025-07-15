@@ -5,7 +5,8 @@ class AppColors {
   static const Color primary = Color(0xFF2563EB);
 
   // Backgrounds
-  static const Color background = Color(0xFFF9FAFB); // Very light gray
+  static const Color background = Color(0xFFF9FAFB);
+  static const Color background2 = Color(0xffF9F3EF); // Very light gray
   static const Color card = Color(0xFFFFFFFF); // White cards/containers
   static const Color inputFill = Color(
     0xFFF3F4F6,

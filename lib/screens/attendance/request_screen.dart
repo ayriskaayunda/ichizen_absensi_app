@@ -1,7 +1,7 @@
-import 'package:ichizen/constants/app_colors.dart';
-import 'package:ichizen/models/app_models.dart'; // Ensure correct import for app_models.dart
-import 'package:ichizen/services/api_services.dart';
 import 'package:flutter/material.dart';
+import 'package:ichizen/constants/app_colors.dart';
+import 'package:ichizen/models/app_models.dart';
+import 'package:ichizen/services/api_services.dart';
 import 'package:intl/intl.dart'; // For date formatting
 
 // Hapus import untuk CustomDateInputField, CustomInputField, PrimaryButton
@@ -134,15 +134,13 @@ class _RequestScreenState extends State<RequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Define the gradient colors for the overall background
     const List<Color> gradientColors = [
-      Color(0xFFE0BBE4), // Light purple/pink
-      Color(0xFFADD8E6), // Light blue
-      Color(0xFF957DAD), // Medium purple
+      Color(0xFFE0BBE4),
+      Color(0xFFADD8E6),
+      Color(0xFF957DAD),
     ];
 
     return Scaffold(
-      // Latar belakang gradien penuh
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -154,11 +152,9 @@ class _RequestScreenState extends State<RequestScreen> {
           ),
         ),
         child: SafeArea(
-          // Memastikan konten tidak tumpang tindih dengan sistem UI
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Custom AppBar
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
@@ -169,7 +165,7 @@ class _RequestScreenState extends State<RequestScreen> {
                     IconButton(
                       icon: const Icon(
                         Icons.arrow_back_ios,
-                        color: Colors.white,
+                        color: Color(0xFF624F82),
                       ),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
@@ -180,7 +176,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Color(0xFF624F82),
                         ),
                       ),
                     ),
@@ -209,24 +205,20 @@ class _RequestScreenState extends State<RequestScreen> {
                                     ).format(_selectedDate!)
                                   : '',
                             ),
-                            readOnly: true, // Membuat field hanya bisa dibaca
+                            readOnly: true,
                             decoration: InputDecoration(
-                              labelText: 'Pilih Tanggal', // Label baru
-                              hintText:
-                                  'Belum ada tanggal dipilih', // Hint baru
+                              labelText: 'Pilih Tanggal',
+                              hintText: 'Belum ada tanggal dipilih',
                               prefixIcon: const Icon(
                                 Icons.calendar_today,
-                                color: AppColors.primary,
+                                color: Color(0xFF624F82),
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    BorderSide.none, // Menghilangkan border
+                                borderSide: BorderSide.none,
                               ),
                               filled: true,
-                              fillColor: Colors.white.withOpacity(
-                                0.9,
-                              ), // Warna fill
+                              fillColor: Colors.white.withOpacity(0.9),
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 15,
@@ -246,15 +238,15 @@ class _RequestScreenState extends State<RequestScreen> {
                       // Reason Text Field
                       TextFormField(
                         controller: _reasonController,
-                        maxLines: 5, // Lebih banyak baris untuk alasan
+                        maxLines: 5,
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
-                          labelText: 'Alasan Permintaan', // Label baru
+                          labelText: 'Alasan Permintaan',
                           hintText:
                               'Cth: Cuti tahunan, izin sakit, keperluan pribadi', // Hint baru
                           prefixIcon: const Icon(
                             Icons.edit_note,
-                            color: AppColors.primary,
+                            color: Color(0xFF624F82),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -282,7 +274,7 @@ class _RequestScreenState extends State<RequestScreen> {
                       _isLoading
                           ? const Center(
                               child: CircularProgressIndicator(
-                                color: AppColors.primary,
+                                color: Color(0xFF624F82),
                               ),
                             )
                           : SizedBox(
@@ -302,7 +294,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                   ),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primary,
+                                  backgroundColor: const Color(0xFF624F82),
                                   foregroundColor: Colors.white,
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 15,

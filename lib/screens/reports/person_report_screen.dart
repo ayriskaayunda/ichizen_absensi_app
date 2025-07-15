@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:ichizen/constants/app_colors.dart';
-import 'package:ichizen/models/app_models.dart';
-import 'package:ichizen/services/api_services.dart';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:ichizen/services/api_services.dart';
 import 'package:intl/intl.dart';
 
 class PersonReportScreen extends StatefulWidget {
@@ -247,7 +246,10 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
       appBar: AppBar(
         title: const Text(
           'Laporan Kehadiran',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Color(0xFF624F82),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -284,7 +286,7 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color(0xFF624F82),
                           ),
                         ),
                         GestureDetector(
@@ -307,7 +309,7 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                                   DateFormat('MMM yyyy').format(_selectedMonth),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.black87,
+                                    color: Color(0xFF624F82),
                                     fontSize: 14,
                                   ),
                                 ),
@@ -315,7 +317,7 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                                 const Icon(
                                   Icons.calendar_today,
                                   size: 16,
-                                  color: Colors.black54,
+                                  color: Color(0xFF624F82),
                                 ),
                               ],
                             ),
@@ -345,11 +347,11 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                           _absentCount + _lateInCount,
                           Colors.deepOrange,
                         ),
-                        _buildSummaryCard(
-                          'Jam Kerja',
-                          _totalWorkingHours,
-                          Colors.purple,
-                        ),
+                        // _buildSummaryCard(
+                        //   'Jam Kerja',
+                        //   _totalWorkingHours,
+                        //   Colors.purple,
+                        // ),
                       ],
                     ),
                     const SizedBox(height: 24),
@@ -358,7 +360,7 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Color(0xFF624F82),
                       ),
                     ),
                     const SizedBox(height: 16),
