@@ -140,6 +140,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                     )
                   : PrimaryButton(label: 'Request OTP', onPressed: _requestOtp),
+              const Text(
+                '© 2025 Mariska',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
             ],
           ),
         ),

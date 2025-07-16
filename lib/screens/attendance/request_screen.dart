@@ -4,11 +4,6 @@ import 'package:ichizen/models/app_models.dart';
 import 'package:ichizen/services/api_services.dart';
 import 'package:intl/intl.dart'; // For date formatting
 
-// Hapus import untuk CustomDateInputField, CustomInputField, PrimaryButton
-// import '../../widgets/custom_date_input_field.dart';
-// import '../../widgets/custom_input_field.dart';
-// import '../../widgets/primary_button.dart';
-
 class RequestScreen extends StatefulWidget {
   const RequestScreen({super.key});
 
@@ -17,7 +12,7 @@ class RequestScreen extends StatefulWidget {
 }
 
 class _RequestScreenState extends State<RequestScreen> {
-  final ApiService _apiService = ApiService(); // Use ApiService
+  final ApiService _apiService = ApiService(); // API service
   DateTime? _selectedDate;
   final TextEditingController _reasonController = TextEditingController();
 
@@ -45,8 +40,8 @@ class _RequestScreenState extends State<RequestScreen> {
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.light(
-              primary: AppColors.primary, // Header background color
-              onPrimary: Colors.white, // Header text color
+              primary: AppColors.primary, // background color
+              onPrimary: Colors.white, // text color
               onSurface: AppColors.textDark, // Body text color
             ),
             textButtonTheme: TextButtonThemeData(
@@ -82,7 +77,7 @@ class _RequestScreenState extends State<RequestScreen> {
     });
 
     try {
-      // Format the selected date to yyyy-MM-dd as required by the /izin API
+      // Format the selected date to yyyy-MM-dd as required by the /izin endpoint
       final String formattedDate = DateFormat(
         'yyyy-MM-dd',
       ).format(_selectedDate!);
@@ -171,7 +166,7 @@ class _RequestScreenState extends State<RequestScreen> {
                     ),
                     const Expanded(
                       child: Text(
-                        'Ajukan Permintaan Baru', // Judul baru
+                        'Ajukan Permintaan Baru',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
@@ -180,9 +175,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 48,
-                    ), // Untuk menyeimbangkan tombol kembali
+                    const SizedBox(width: 48),
                   ],
                 ),
               ),
@@ -253,9 +246,7 @@ class _RequestScreenState extends State<RequestScreen> {
                             borderSide: BorderSide.none, // Menghilangkan border
                           ),
                           filled: true,
-                          fillColor: Colors.white.withOpacity(
-                            0.9,
-                          ), // Warna fill
+                          fillColor: Colors.white.withOpacity(0.9),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 20,
                             vertical: 15,
@@ -286,7 +277,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                   color: Colors.white,
                                 ), // Icon kirim
                                 label: const Text(
-                                  'Kirim Permintaan', // Teks tombol baru
+                                  'Kirim Permintaan',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,

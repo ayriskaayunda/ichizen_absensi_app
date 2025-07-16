@@ -210,7 +210,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             title: const Text(
               'Edit Profil',
               style: TextStyle(
-                color: Color(0xFF957DAD),
+                color: Color(0xFF624F82),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

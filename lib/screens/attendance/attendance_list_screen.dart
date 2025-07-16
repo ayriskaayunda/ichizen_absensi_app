@@ -347,7 +347,7 @@ class _AttendanceListScreenState extends State<AttendanceListScreen> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.textDark,
+                        color: Color(0xFF624F82),
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),

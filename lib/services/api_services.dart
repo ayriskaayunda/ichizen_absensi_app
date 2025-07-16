@@ -5,35 +5,37 @@ import 'package:ichizen/models/app_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String _baseUrl = 'https://appabsensi.mobileprojp.com/api';
-  static String? _token;
+  static const String _baseUrl =
+      'https://appabsensi.mobileprojp.com/api'; //ini adalah alamat dasardari API, semua endpoint akan ditambahkan ke url ini
+  static String? _token; //  token ini berguna untuk menyimpan token otentikasi
+  // static ini variabel hanya ada satu di apliksi  ini
 
-  // Initialize token from SharedPreferences
+  // init() fungsi nya untuk memuat token sebelumnya di simpan di sharedpreferences ke dalam variabel token
   static Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
   }
 
-  // Save token to SharedPreferences
+  // untuk  menyimpan token baru dan memperbarui variabel token
   static Future<void> _saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
     _token = token;
   }
 
-  // Clear token from SharedPreferences
+  // fungsinya adalah menghapus token dari SharedPreferences dan juga dari variabel _token
   static Future<void> clearToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
     _token = null;
   }
 
-  // Helper to get token (for external use, e.g., SplashScreen)
+  // fungsi nya adalah mememastikan token sudah ada ( guna untuk splashscreen)
   static String? getToken() {
     return _token;
   }
 
-  // Helper to get headers with Authorization token
+  // untuk memberitahu server bahwa mengirim dan menerima data json
   Map<String, String> _getHeaders({bool includeAuth = false}) {
     final headers = {
       'Accept': 'application/json',
@@ -476,7 +478,7 @@ class ApiService {
     }
   }
 
-  // --- User Profile Endpoints ---
+  // --- User       Profile Endpoints ---
 
   Future<ApiResponse<User>> getProfile() async {
     final url = Uri.parse('$_baseUrl/profile');

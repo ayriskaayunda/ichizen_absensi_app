@@ -205,8 +205,8 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
   Widget _buildSummaryCard(String title, dynamic value, Color color) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
-        borderRadius: BorderRadius.circular(16),
+        color: Colors.purpleAccent.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: color.withOpacity(0.3),
@@ -254,6 +254,7 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -306,7 +307,10 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  DateFormat('MMM yyyy').format(_selectedMonth),
+                                  DateFormat(
+                                    'MMMM EEEE yyyy',
+                                    'id',
+                                  ).format(_selectedMonth),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Color(0xFF624F82),
@@ -358,7 +362,7 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                     const Text(
                       'Grafik Kehadiran',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF624F82),
                       ),
@@ -371,7 +375,7 @@ class _PersonReportScreenState extends State<PersonReportScreen> {
                           borderRadius: BorderRadius.circular(16),
                         ),
                         elevation: 4,
-                        color: Colors.white.withOpacity(0.95),
+                        color: Colors.white.withOpacity(0.2),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
                           child: PieChart(

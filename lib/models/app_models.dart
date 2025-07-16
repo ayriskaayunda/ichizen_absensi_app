@@ -1,6 +1,3 @@
-// lib/models/app_models.dart
-
-// Helper function to safely parse int from dynamic (could be int or string)
 int? _parseIntFromDynamic(dynamic value) {
   if (value is int) {
     return value;

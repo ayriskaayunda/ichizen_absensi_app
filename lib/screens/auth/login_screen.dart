@@ -1,5 +1,3 @@
-// import 'package:ichizen/widgets/custom_input_field.dart'; // Kita akan mengganti ini
-// import 'package:ichizen/widgets/primary_button.dart'; // Kita akan mengganti ini
 import 'package:flutter/material.dart';
 import 'package:ichizen/models/app_models.dart';
 import 'package:ichizen/routes/app_routes.dart';
@@ -16,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final ApiService _apiService = ApiService(); // Instantiate your ApiService
+  final ApiService _apiService = ApiService(); // Api service
 
   bool _isPasswordVisible = false;
   bool _isLoading = false; // Add loading state
@@ -24,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // Defer the session check and navigation until after the first frame is built
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkSession();
     });
@@ -108,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            // Sesuaikan warna gradient sesuai keinginan Anda
+
             colors: [Color(0xFFE0BBE4), Color(0xFFADD8E6), Color(0xFF957DAD)],
           ),
         ),
@@ -120,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Ganti icon atau tambahkan logo di sini jika diinginkan
+                  // Ganti icon disini kalau ingin di tambahkan
                   const Text(
                     'Selamat Datang di Ichizen !',
                     style: TextStyle(
@@ -283,6 +281,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ],
+                  ),
+                  const Text(
+                    '© 2025 Mariska',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ],
               ),

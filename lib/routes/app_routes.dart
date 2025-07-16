@@ -1,4 +1,3 @@
-// Named routes config
 class AppRoutes {
   static const initial = '/splash_screen';
   static const login = '/login';

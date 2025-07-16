@@ -206,15 +206,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  //fungsi untuk permintaan izin
   Future<void> _handleIzinRequest() async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (ctx) => const RequestScreen()),
     );
-
-    // If the RequestScreen returns true, it means a request was successfully submitted,
-    // so refresh the attendance data.
     if (result == true) {
       _fetchAttendanceData();
     }
@@ -240,12 +236,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Fungsi untuk me-refresh data
   Future<void> _onRefresh() async {
     await Future.wait([
       _loadUserData(),
       _fetchAttendanceData(),
-      _determinePosition(), // Opsional: me-refresh posisi juga
+      _determinePosition(),
     ]);
   }
 
@@ -260,10 +255,6 @@ class _HomeScreenState extends State<HomeScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            // Menggunakan warna-warna yang konsisten dengan tema jika diinginkan,
-            // atau mempertahankan gradien ini jika ini adalah desain yang disengaja.
-            // Contoh penggunaan AppColors untuk gradien (jika ingin mengubah):
-            // colors: [AppColors.primary.withOpacity(0.8), AppColors.primary.withOpacity(0.6), AppColors.primary],
             colors: [Color(0xFFE0BBE4), Color(0xFFADD8E6), Color(0xFF957DAD)],
           ),
         ),
@@ -273,21 +264,30 @@ class _HomeScreenState extends State<HomeScreen> {
               _buildHeader(),
               Expanded(
                 child: RefreshIndicator(
-                  // <--- Tambahkan RefreshIndicator di sini
                   onRefresh: _onRefresh,
-                  color: AppColors.primary, // Warna indikator refresh
-                  backgroundColor:
-                      AppColors.background, // Latar belakang indikator refresh
+                  color: AppColors.primary,
+                  backgroundColor: AppColors.background,
                   child: ListView(
                     padding: const EdgeInsets.all(16),
                     children: [
                       _buildStatusCard(),
                       const SizedBox(height: 16),
                       _buildCheckButton(hasCheckedIn, hasCheckedOut),
-                      const SizedBox(height: 12), // Added spacing
-                      _buildIzinButton(), // Added Izin button
+                      const SizedBox(height: 12),
+                      _buildIzinButton(),
                       const SizedBox(height: 16),
                       _buildSummarySection(),
+                      const SizedBox(height: 30),
+                      const Center(
+                        child: Text(
+                          '© 2025 Mariska',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -307,11 +307,8 @@ class _HomeScreenState extends State<HomeScreen> {
           CircleAvatar(
             radius: 28,
             backgroundColor: AppColors.card,
-            // Menggunakan warna latar belakang yang konsisten dengan tema
-            backgroundImage: NetworkImage(
-              _imageUrl ?? "", // Ganti dengan URL gambar default
-            ),
-          ), // Menggunakan AppColors.card
+            backgroundImage: NetworkImage(_imageUrl),
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -336,7 +333,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          // const Icon(Icons.notifications_none, color: Color(0xFF624F82)),
         ],
       ),
     );
@@ -438,7 +434,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // New Izin button widget
   Widget _buildIzinButton() {
     return ElevatedButton(
       onPressed: _handleIzinRequest,
