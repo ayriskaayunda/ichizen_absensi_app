@@ -338,6 +338,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       elevation: 5,
                     ),
                   ),
+                  const SizedBox(height: 7),
                   const Center(
                     child: Text(
                       '© 2025 Mariska',

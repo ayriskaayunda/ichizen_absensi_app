@@ -1,4 +1,3 @@
-import 'package:ichizen/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 /// A customizable and reusable BottomNavigationBar widget.
@@ -41,10 +40,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: Icon(Icons.access_time), // Icon for attendance/clock-in
           label: 'Attendance',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart), // Icon for reports/statistics
-          label: 'Reports',
-        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.bar_chart), // Icon for reports/statistics
+        //   label: 'Reports',
+        // ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person), // Icon for reports/statistics
           label: 'Profile',

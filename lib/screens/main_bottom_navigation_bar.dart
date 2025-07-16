@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ichizen/screens/attendance/attendance_list_screen.dart';
 import 'package:ichizen/screens/auth/profile_screen.dart';
 import 'package:ichizen/screens/home_screen.dart';
-import 'package:ichizen/screens/reports/person_report_screen.dart';
 import 'package:ichizen/widgets/custom_bottom_navigation_bar.dart';
 
 class MainBottomNavigationBar extends StatefulWidget {
@@ -43,9 +42,9 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
         refreshNotifier: MainBottomNavigationBar.refreshAttendanceNotifier,
       ), // Access via widget name
       // Pass the new refreshReportsNotifier to PersonReportScreen
-      PersonReportScreen(
-        refreshNotifier: MainBottomNavigationBar.refreshReportsNotifier,
-      ), // Content for the third tab
+      // PersonReportScreen(
+      //   refreshNotifier: MainBottomNavigationBar.refreshReportsNotifier,
+      // ), // Content for the third tab
       // FIX: Pass the new refreshProfileNotifier to ProfileScreen
       ProfileScreen(
         refreshNotifier: MainBottomNavigationBar.refreshProfileNotifier,
@@ -74,17 +73,16 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
     else if (index == 1) {
       MainBottomNavigationBar.refreshAttendanceNotifier.value =
           true; // Set value via widget name
-    }
-    // Special handling for when navigating TO the Reports tab (index 2)
-    else if (index == 2) {
-      MainBottomNavigationBar.refreshReportsNotifier.value =
-          true; // Set value via widget name
-    }
-    // NEW: Special handling for when navigating TO the Profile tab (index 3)
-    else if (index == 3) {
+    } else if (index == 2) {
       MainBottomNavigationBar.refreshProfileNotifier.value =
           true; // Set value via widget name
     }
+    // Special handling for when navigating TO the Reports tab (index 2)
+    // else if (index == 2) {
+    //   MainBottomNavigationBar.refreshReportsNotifier.value =
+    //       true; // Set value via widget name
+    // }
+    // NEW: Special handling for when navigating TO the Profile tab (index 3)
     // You can add more `else if` blocks for other tabs if they also need a refresh
     // when they are explicitly tapped from the bottom navigation bar.
   }

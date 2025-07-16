@@ -282,6 +282,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 100),
                   const Text(
                     '© 2025 Mariska',
                     style: TextStyle(
